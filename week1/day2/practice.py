@@ -21,7 +21,7 @@ print(b)
 b.remove("hamster") # removes the first  occurence of this element from the list
 print(b)
 
-b.pop() # removing last 1 element
+b.pop() # removing last 1 element by default or at specified index
 print(b)
 
 # b.clear() # empties the full list
