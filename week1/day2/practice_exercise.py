@@ -1,57 +1,90 @@
-# Challenge 2: Affordable Items
-# Goal: Create a program that prints a list of items that can be purchased with a given amount of money.
+# Exercise 7: Temperature Advice
+# Goal: Generate a random temperature and provide advice based on the temperature range.
 
 # Key Python Topics:
+# Functions
+# Conditionals (if / elif)
+# Random numbers
+# Floating-point numbers (Bonus)
+# Handling seasons (Bonus)
 
-# Dictionaries
-# Loops (for loop)
-# Conditional statements (if, else)
-# String manipulation (replace())
-# Type conversion (int())
-# Lists
-# Sorting (sorted())
+import random
 
-# Instructions:
-# 1. Store Data:
-# You will be provided with a dictionary (items_purchase) where the keys are the item names and the values 
-# are their prices (as strings with a dollar sign). The priority is defined by the position of the item on 
-# the dictionary: from the most important to the less important.
-# You will also be given a string (wallet) representing the amount of money you have.
+# Step 1: Create the get_random_temp() Function
+# Create a function called get_random_temp() that returns a random integer between -10 and 40 degrees Celsius.
 
-# 2. Data Cleaning:
-# You need to clean the dollar sign and the commas using python. Don’t hard code it.
+# Step 2: Create the main() Function
+# Create a function called main(). Inside this function:
+# Call get_random_temp() to get a random temperature.
+# Store the temperature in a variable and print a friendly message like:
+# “The temperature right now is 32 degrees Celsius.”
 
-# 3. Determining Affordable Items:
-# create a list called basket and add there the items that you can buy with the money you have in the wallet
-# Don’t forget to update the wallet after buying an item.
-# If the basket is empty (no items can be afforded), return the string “Nothing”.
-# Otherwise, print the basket list in alphabetical order.
+# Step 3: Provide Temperature-Based Advice
+# Inside main(), provide advice based on the temperature:
+# Below 0°C: e.g., “Brrr, that’s freezing! Wear some extra layers today.”
+# Between 0°C and 16°C: e.g., “Quite chilly! Don’t forget your coat.”
+# Between 16°C and 23°C: e.g., “Nice weather.”
+# Between 24°C and 32°C: e.g., “A bit warm, stay hydrated.”
+# Between 32°C and 40°C: e.g., “It’s really hot! Stay cool.”
 
-# 4. Examples:
-# Given:
-# items_purchase = {"Water": "$1", "Bread": "$3", "TV": "$1,000", "Fertilizer": "$20"}
-# wallet = "$300"
-# The output should be: ["Bread", "Fertilizer", "Water"].
+# Expected Output:
+# The temperature right now is 32 degrees Celsius.
+# It's really hot! Stay cool.
 
-# Given:
-# items_purchase = {"Apple": "$4", "Honey": "$3", "Fan": "$14", "Bananas": "$4", "Pan": "$100", "Spoon": "$2"}
-# wallet = "$100"
-# The output should be: ["Apple", "Bananas", "Fan", "Honey", "Spoon"].
+def get_random_temp():
+    return random.randint(-10, 40) # for integer temperatures
 
-# Given:
-items_purchase = {"Phone": "$999", "Speakers": "$300", "Laptop": "$5,000", "PC": "$1200"}
-wallet = "$1"
-# The output should be: "Nothing".
+def main():
+    temperature = get_random_temp()
+    print(f"The temperature right now is {temperature} degrees Celsius.")
+    if temperature < 0:
+        print("Brrr, that’s freezing! Wear some extra layers today.")
+    elif temperature <= 16:
+        print("Quite chilly! Don’t forget your coat.")
+    elif temperature <= 23:
+        print("Nice weather.")
+    elif temperature <= 32:
+        print("A bit warm, stay hydrated.")
+    else:
+        print("It’s really hot! Stay cool.")
+main()
 
-basket = []
-wallet = float(wallet.replace("$","").replace(",",""))
-for (k,v) in items_purchase.items():
-    price = float(v.replace("$","").replace(",",""))
-    if price <= wallet:
-        basket.append(k)
-        wallet -= price
-if basket == []:
-    print("Nothing")
-else:
-    basket.sort()
-    print(basket)
+# Step 4: Floating-Point Temperatures (Bonus)
+# Modify get_random_temp() to return a random floating-point number using random.uniform() for more accurate temperature values.
+
+def get_random_temp():
+    return random.uniform(-10, 40) # for float temperatures
+main()
+
+# Step 5: Month-Based Seasons (Bonus)
+# Instead of directly generating a random temperature, ask the user for a month (1-12) and determine the season using if/elif conditions.
+# Modify get_random_temp() to return temperatures specific to each season.
+
+def get_random_temp_by_season(month):
+    if month < 3 or month == 12:
+        temp_LB=-10; temp_UB = 0
+    elif month < 5 or month > 9:
+        temp_LB=0; temp_UB = 16
+    elif month < 7:
+        temp_LB=16; temp_UB = 23
+    elif month == 7:
+        temp_LB=23; temp_UB = 32
+    else:
+        temp_LB=32; temp_UB = 40
+    return random.uniform(temp_LB, temp_UB) # for float temperatures
+
+def main():
+    month = int(input("please specify the current month 1-12: "))
+    temperature = get_random_temp_by_season(month)
+    print(f"The temperature right now is {temperature} degrees Celsius.")
+    if temperature < 0:
+        print("Brrr, that’s freezing! Wear some extra layers today.")
+    elif temperature <= 16:
+        print("Quite chilly! Don’t forget your coat.")
+    elif temperature <= 23:
+        print("Nice weather.")
+    elif temperature <= 32:
+        print("A bit warm, stay hydrated.")
+    else:
+        print("It’s really hot! Stay cool.")
+main()
