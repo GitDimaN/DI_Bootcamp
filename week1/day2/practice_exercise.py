@@ -1,90 +1,163 @@
-# Exercise 7: Temperature Advice
-# Goal: Generate a random temperature and provide advice based on the temperature range.
+# Daily Challenge: Coffee Shop Menu Manager
+# You were hired to help a small coffee shop manage their product menu using Python.
 
-# Key Python Topics:
-# Functions
-# Conditionals (if / elif)
-# Random numbers
-# Floating-point numbers (Bonus)
-# Handling seasons (Bonus)
+# Write a program that:
 
-import random
+# 1. Stores the coffee shop menu in memory
+# 2. Lets the user:
+# Create a new item
+# Read (view) all items
+# Update an item’s price
+# Delete an item
+# Exit
+# Your program must be organized with functions.
+# Do not write all the logic in one giant while loop.
+# You should split behavior into reusable functions.
 
-# Step 1: Create the get_random_temp() Function
-# Create a function called get_random_temp() that returns a random integer between -10 and 40 degrees Celsius.
+# 1. Data structure
+# We will represent the menu using a dictionary called menu.
+# The key is the drink name (string)
+# The value is the price (float)
+# Example starting data (you MUST start with this so tests are consistent):
 
-# Step 2: Create the main() Function
-# Create a function called main(). Inside this function:
-# Call get_random_temp() to get a random temperature.
-# Store the temperature in a variable and print a friendly message like:
-# “The temperature right now is 32 degrees Celsius.”
+menu = {
+    "espresso": 7.0,
+    "latte": 12.0,
+    "cappuccino": 10.0
+}
 
-# Step 3: Provide Temperature-Based Advice
-# Inside main(), provide advice based on the temperature:
-# Below 0°C: e.g., “Brrr, that’s freezing! Wear some extra layers today.”
-# Between 0°C and 16°C: e.g., “Quite chilly! Don’t forget your coat.”
-# Between 16°C and 23°C: e.g., “Nice weather.”
-# Between 24°C and 32°C: e.g., “A bit warm, stay hydrated.”
-# Between 32°C and 40°C: e.g., “It’s really hot! Stay cool.”
+# 2. Required functions
+# You must implement the following functions.
 
-# Expected Output:
-# The temperature right now is 32 degrees Celsius.
-# It's really hot! Stay cool.
+# a) show_menu(menu_dict)
+# Input: the dictionary
+# Output: prints all items in the format drink - price₪
+# If the menu is empty, print: "The menu is empty."
+# Example:
+# Current menu:
+# espresso - 7.0₪
+# latte - 12.0₪
+# cappuccino - 10.0₪
+# This function only prints. It does not return anything.
 
-def get_random_temp():
-    return random.randint(-10, 40) # for integer temperatures
+def show_menu(menu_dict):
+    for (k,v) in menu_dict.items():
+        print(f"{k} - {v}₪")
 
-def main():
-    temperature = get_random_temp()
-    print(f"The temperature right now is {temperature} degrees Celsius.")
-    if temperature < 0:
-        print("Brrr, that’s freezing! Wear some extra layers today.")
-    elif temperature <= 16:
-        print("Quite chilly! Don’t forget your coat.")
-    elif temperature <= 23:
-        print("Nice weather.")
-    elif temperature <= 32:
-        print("A bit warm, stay hydrated.")
+# show_menu(menu)
+
+# b) add_item(menu_dict)
+# Ask the user for:
+# drink name
+# price
+# Add it to the dictionary.
+# If the drink already exists, print "Item already exists!" and do not change the price.
+# Example interaction:
+# Enter new drink name: mocha
+# Enter price: 14
+# "mocha" added!
+# This function mutates the dictionary. It does not return anything.
+
+def add_item(menu_dict):
+    drink_name = input("Enter new drink name: ")
+    drink_price = input("Enter price: ")
+    if drink_name in menu_dict.keys():
+        print("Item already exists!")
     else:
-        print("It’s really hot! Stay cool.")
-main()
+        menu_dict[drink_name] = drink_price
+        print(f"\"{drink_name}\" added!")
 
-# Step 4: Floating-Point Temperatures (Bonus)
-# Modify get_random_temp() to return a random floating-point number using random.uniform() for more accurate temperature values.
+# add_item(menu)
+# print(menu)
 
-def get_random_temp():
-    return random.uniform(-10, 40) # for float temperatures
-main()
+# c) update_price(menu_dict)
+# Ask the user which drink they want to update.
+# If it exists:
+# ask for the new price
+# update it
+# print: "Price updated!"
+# If it doesn’t exist:
+# print: "Item not found."
 
-# Step 5: Month-Based Seasons (Bonus)
-# Instead of directly generating a random temperature, ask the user for a month (1-12) and determine the season using if/elif conditions.
-# Modify get_random_temp() to return temperatures specific to each season.
-
-def get_random_temp_by_season(month):
-    if month < 3 or month == 12:
-        temp_LB=-10; temp_UB = 0
-    elif month < 5 or month > 9:
-        temp_LB=0; temp_UB = 16
-    elif month < 7:
-        temp_LB=16; temp_UB = 23
-    elif month == 7:
-        temp_LB=23; temp_UB = 32
+def update_price(menu_dict):
+    drink_name = input("Enter which drink to update: ")
+    drink_new_price = input("Enter its new price: ")
+    if drink_name in menu_dict.keys():
+        menu_dict[drink_name] = drink_new_price
+        print("Price updated!")
     else:
-        temp_LB=32; temp_UB = 40
-    return random.uniform(temp_LB, temp_UB) # for float temperatures
+        print("Item not found.")
 
-def main():
-    month = int(input("please specify the current month 1-12: "))
-    temperature = get_random_temp_by_season(month)
-    print(f"The temperature right now is {temperature} degrees Celsius.")
-    if temperature < 0:
-        print("Brrr, that’s freezing! Wear some extra layers today.")
-    elif temperature <= 16:
-        print("Quite chilly! Don’t forget your coat.")
-    elif temperature <= 23:
-        print("Nice weather.")
-    elif temperature <= 32:
-        print("A bit warm, stay hydrated.")
+# update_price(menu)
+# print(menu)
+
+# d) delete_item(menu_dict)
+# Ask the user which drink to remove.
+# If it exists:
+# delete it from the dict
+# print: "Item deleted."
+# Otherwise:
+# print: "Item not found."
+
+def delete_item(menu_dict):
+    drink_name = input("Enter which drink to remove: ")
+    if drink_name in menu_dict.keys():
+        del menu_dict[drink_name]
+        print("Item deleted.")
     else:
-        print("It’s really hot! Stay cool.")
-main()
+        print("Item not found.")
+
+# delete_item(menu)
+# print(menu)
+
+# e) show_options()
+# Prints the main menu of actions for the user:
+# What would you like to do?
+# 1. Show menu
+# 2. Add item
+# 3. Update price
+# 4. Delete item
+# 5. Exit
+# Only prints. Doesn’t return anything.
+
+def show_options():
+    print("What would you like to do?")
+    print("1. Show menu" + "\n" + "2. Add item" + "\n" + "3. Update price" + "\n" + "4. Delete item" + "\n" + "5. Exit")
+
+# show_options()
+
+# f) run_coffee_shop()
+# This is the main controller of the program.
+
+# Behavior:
+# Keep running in a loop.
+# Show options.
+# Ask the user to choose (1-5).
+# Depending on the choice, call the correct function.
+
+
+# Rules:
+# Invalid choice → print "Invalid choice, try again."
+# Choice 5 stops the loop and prints "Goodbye!"
+
+def run_coffee_shop(menu_dict):
+    while True:
+       show_options()
+       action = input("Please choose an action 1-5: ")
+       if action.isdigit()==False or int(action) not in range(1,6):
+           print("Invalid choice, try again.")
+           continue
+       if int(action) == 1:
+           show_menu(menu_dict)
+       elif int(action) == 2:
+           add_item(menu_dict)
+       elif int(action) == 3:
+           update_price(menu_dict)
+       elif int(action) == 4:
+           delete_item(menu_dict)
+       elif int(action) == 5:
+           print("Goodbye!")
+           break
+    print(menu)      
+
+run_coffee_shop(menu)
