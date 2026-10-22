@@ -92,7 +92,7 @@ def player_input(player,board):
         # Overall cell position:
         if board[row_nr][col_nr] == ' ':
             board[row_nr][col_nr] = players_symbol[player]
-            print("thank you, your step is performed")
+            print("Thank you, your step is performed")
             active_step = False
         else:
             print("This cell is already occupied, please choose another position!")
