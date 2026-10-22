@@ -87,7 +87,7 @@ def player_input(player,board):
                 col_nr = 4 * int(col_nr) - 3
                 break
             else:
-                col_nr = input("The column number entered is invalid!")
+                print("The column number entered is invalid!")
 
         # Overall cell position:
         if board[row_nr][col_nr] == ' ':
@@ -130,10 +130,6 @@ def check_win(board, player):
 
 # Create a function to check if the game has resulted in a tie.
 # The function should check if all positions of the board are full, without a winner.
-
-valid_pos = [
-
-]
 
 def tie_check(board):
 
