@@ -38,7 +38,8 @@ list_2D = [list(row) for row in MATRIX_STR.strip().split('\n')]
 print(list_2D)
 
 # to see the matrix better visually:
-for row in MATRIX_STR.strip().split('\n'): print(list(row))
+for row in MATRIX_STR.strip().split('\n'):
+    print(list(row))
 
 # Step 2: Processing Columns
 # Neo reads the matrix column by column, from top to bottom, starting from the leftmost column.

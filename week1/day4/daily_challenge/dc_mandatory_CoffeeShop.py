@@ -41,8 +41,12 @@ menu = {
 # This function only prints. It does not return anything.
 
 def show_menu(menu_dict):
-    for (k,v) in menu_dict.items():
-        print(f"{k} - {v}₪")
+    if not menu_dict:
+        print("The menu is empty.")
+    else:
+        print("Current menu:")
+        for (k,v) in menu_dict.items():
+            print(f"{k} - {v}₪")
 
 # show_menu(menu)
 
@@ -60,7 +64,7 @@ def show_menu(menu_dict):
 
 def add_item(menu_dict):
     drink_name = input("Enter new drink name: ")
-    drink_price = input("Enter price: ")
+    drink_price = float(input("Enter price: "))
     if drink_name in menu_dict.keys():
         print("Item already exists!")
     else:
@@ -81,8 +85,8 @@ def add_item(menu_dict):
 
 def update_price(menu_dict):
     drink_name = input("Enter which drink to update: ")
-    drink_new_price = input("Enter its new price: ")
     if drink_name in menu_dict.keys():
+        drink_new_price = float(input("Enter its new price: "))
         menu_dict[drink_name] = drink_new_price
         print("Price updated!")
     else:
@@ -158,6 +162,6 @@ def run_coffee_shop(menu_dict):
        elif int(action) == 5:
            print("Goodbye!")
            break
-    print(menu)      
+    # print(menu)      
 
 run_coffee_shop(menu)
